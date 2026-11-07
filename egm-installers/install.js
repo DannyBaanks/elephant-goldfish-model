@@ -27,7 +27,7 @@ const INSTALLERS = {
   copilot: './install-copilot.js',
 };
 
-const BUNDLE = expand('~/Development/ISyCo Git');
+const BUNDLE = path.resolve(__dirname, '..');
 
 function help() {
   console.log('');

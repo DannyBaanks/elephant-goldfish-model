@@ -57,6 +57,7 @@ Cada instalador escribe `.egm-source-sha` (commit del bundle) y
 
 ```
 .                   # Bundle EGM v0.1.1 (fuente original: google/elephant-goldfish-model)
+.egm-upstream-sha   # commit de upstream sobre el que está construido el fork
 egm-installers/     # Instaladores por CLI + autocompletado de shell
   install.js          # despachador principal
   install-*.js        # un instalador por CLI

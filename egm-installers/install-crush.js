@@ -14,7 +14,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { copyTree, writeSourceSha, readBundleSha, expand, ok, info, warn, err, header } = require('./lib/utils');
 
-const BUNDLE = expand('~/Development/ISyCo Git');
+const BUNDLE = path.resolve(__dirname, '..');
 const DEST_ROOT = expand('~/.agents/skills');
 
 const DOCS_TO_COPY = ['claude.md', 'codex.md', 'harnesses.md'];

@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const { copyTree, writeManifest, writeSourceSha, readBundleSha, expand, ok, info, warn, err, header } = require('./lib/utils');
 
-const BUNDLE = expand('~/Development/ISyCo Git');
+const BUNDLE = path.resolve(__dirname, '..');
 const QODER = expand('~/.qoder/plugins');
 const MARKETPLACE_DEST = path.join(QODER, 'marketplaces/egm');
 const CACHE_DEST = path.join(QODER, 'cache/egm/egm/0.1.1');

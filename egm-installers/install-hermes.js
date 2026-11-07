@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const { copyTree, writeManifest, writeSourceSha, readBundleSha, expand, ok, info, warn, err, header } = require('./lib/utils');
 
-const BUNDLE = expand('~/Development/ISyCo Git');
+const BUNDLE = path.resolve(__dirname, '..');
 const DEST = expand('~/.hermes/plugins/egm');
 
 function install() {

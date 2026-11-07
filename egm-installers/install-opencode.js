@@ -19,7 +19,7 @@ const fs = require('fs');
 const path = require('path');
 const { writeSourceSha, readBundleSha, expand, ok, info, warn, err, header } = require('./lib/utils');
 
-const BUNDLE = expand('~/Development/ISyCo Git');
+const BUNDLE = path.resolve(__dirname, '..');
 const SKILLS_PATH = '/home/danny/Development/ISyCo Git/egm/skills';
 const CONFIGS = [
   expand('~/.config/opencode/opencode.json'),
