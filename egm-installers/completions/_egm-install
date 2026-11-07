@@ -1,0 +1,37 @@
+# Zsh completion for egm-install / egm
+# Place this file in a directory on your fpath (e.g. ~/.local/share/zsh/completions/)
+# and add to your ~/.zshrc:
+#   fpath=(~/.local/share/zsh/completions $fpath)
+#   autoload -Uz compinit && compinit
+
+#compdef egm-install egm
+
+_egm_install() {
+    local -a clis
+    clis=(
+        'codex:Instalar en Codex CLI'
+        'agy:Instalar en agy / Gemini CLI'
+        'claude:Instalar en Claude Code'
+        'cursor:Instalar en Cursor'
+        'crush:Instalar en Crush'
+        'qoder:Instalar en qoder'
+        'copilot:Instalar en copilot CLI'
+        'hermes:Instalar en Hermes'
+        'opencode:Instalar en OpenCode V2'
+        '--all:Instalar en todos los CLI detectados'
+        '--help:Mostrar ayuda'
+        '-h:Mostrar ayuda'
+    )
+
+    _arguments \
+        '1: :->cli' \
+        '*: :->args'
+
+    case $state in
+        cli)
+            _describe 'CLI a instalar' clis
+            ;;
+    esac
+}
+
+_egm_install "$@"
