@@ -75,7 +75,7 @@ Se agrega automáticamente a tu `~/.zshrc` (fpath + compinit). Los archivos vive
 
 ## Uso desde el directorio del repo
 
-Desde `ISyCo Git/egm-installers/`:
+Desde `ISyCo Git/egm/egm-installers/`:
 
 ```bash
 # Instalar en un solo CLI
@@ -127,5 +127,5 @@ crush dirs                 # skill-path = $HOME/.agents/skills
 ## Requisitos
 
 - Node.js >= 18 (para los installers de este directorio)
-- El bundle en `ISyCo Git/egm/` (ya incluido)
+- El bundle en la raíz de este repo (`ISyCo Git/egm/`)
 - Los CLI respectivos instalados en el sistema

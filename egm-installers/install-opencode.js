@@ -5,7 +5,7 @@
  *
  * Configura:
  *   - ~/.config/opencode/opencode.json  y  ~/.openisy/config/opencode.json
- *     → agrega "/home/danny/Development/ISyCo Git/egm/skills" al array "skills"
+ *     → agrega "<repo>/skills" al array "skills"
  *   - Escribe .egm-source-sha en ambos config dirs
  *
  * Nota: la generación de agentes y comandos V2 nativos ya fue verificada en
@@ -20,7 +20,7 @@ const path = require('path');
 const { writeSourceSha, readBundleSha, expand, ok, info, warn, err, header } = require('./lib/utils');
 
 const BUNDLE = path.resolve(__dirname, '..');
-const SKILLS_PATH = '/home/danny/Development/ISyCo Git/egm/skills';
+const SKILLS_PATH = path.join(BUNDLE, 'skills');
 const CONFIGS = [
   expand('~/.config/opencode/opencode.json'),
   expand('~/.openisy/config/opencode.json'),
