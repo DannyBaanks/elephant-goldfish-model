@@ -1,88 +1,142 @@
-# elephant-goldfish-model (ISyCo fork)
+<h1 align="center">🐘 Elephant-Goldfish Model <sub>· fork ISyCo</sub></h1>
 
-Fork del bundle **Elephant-Goldfish Model (EGM)** de Google, preparado para
-instalarse fácilmente en cualquier CLI de IA (Codex, agy/Gemini, Claude Code,
-Cursor, Crush, qoder, copilot, Hermes y OpenCode V2) mediante un único comando
-en el PATH.
+<p align="center">
+  <strong>Un comando. Nueve CLIs. Cero fricción.</strong><br>
+  Fork de <a href="https://github.com/google/elephant-goldfish-model">google/elephant-goldfish-model</a> con instaladores idempotentes para los principales CLIs de IA.
+</p>
 
-Incluye:
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg">
+  <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A5%2018-339933?logo=node.js&logoColor=white">
+  <img alt="CLIs" src="https://img.shields.io/badge/CLIs-9-6f42c1">
+  <img alt="E2E" src="https://img.shields.io/badge/E2E-47%2F47%20PASS-brightgreen">
+  <img alt="Upstream" src="https://img.shields.io/badge/upstream-e9e1f06-lightgrey">
+</p>
 
-- Bundle EGM v0.1.1 en la raíz del repo (skills, agentes, recursos, docs, adaptadores)
-- `egm-installers/` — paquetes de comando por CLI, idempotentes, con manifiesto SHA-256
+---
 
-## Comando rápido (ya instalado en ~/.local/bin)
-
-Desde cualquier directorio:
+## ⚡ Inicio rápido
 
 ```bash
-# Instalar en un CLI específico
+# Instalar en un CLI
 egm-install codex
-egm-install agy
-egm-install claude
-egm-install cursor
-egm-install crush
-egm-install qoder
-egm-install copilot
-egm-install hermes
-egm-install opencode
 
-# Instalar en todos los CLI que tenga detectados
+# Instalar en todos los CLIs detectados
 egm-install --all
-
-# Alias corto
-egm --all
 
 # Ayuda
 egm-install --help
 ```
 
-## CLIs soportadas y destino
+> El comando vive en `~/.local/bin/egm-install` y funciona desde cualquier directorio.
+> Desde un clon del repo también puedes ejecutar `node egm-installers/install.js <cli>`.
 
-| CLI | Carpeta de destino |
-|-----|-------------------|
-| Codex | `~/.codex/plugins/egm/` |
-| agy / Gemini | `~/.gemini/config/plugins/egm/` |
-| Claude Code | `~/.claude/plugins/egm/` |
-| Cursor | `~/.cursor/plugins/local/egm/` |
-| Crush | `~/.agents/skills/egm-<skill>/` |
-| Hermes | `~/.hermes/plugins/egm/` |
-| OpenCode | `~/.config/opencode/` + `~/.openisy/config/` |
-| qoder | `~/.qoder/plugins/marketplaces/egm/` + `~/.qoder/plugins/cache/egm/egm/0.1.1/` |
-| copilot | `~/.copilot/installed-plugins/_direct/google--elephant-goldfish-model/` |
+<details>
+<summary><strong>¿No tienes el comando en el PATH?</strong></summary>
 
-Cada instalador escribe `.egm-source-sha` (commit del bundle) y
-`.egm-install-manifest.sha256` (checksums de archivos instalados).
+```bash
+git clone https://github.com/DannyBaanks/elephant-goldfish-model.git "$HOME/Development/ISyCo Git/egm"
 
-## Estructura del repositorio
-
-```
-.                   # Bundle EGM v0.1.1 (fuente original: google/elephant-goldfish-model)
-.egm-upstream-sha   # commit de upstream sobre el que está construido el fork
-egm-installers/     # Instaladores por CLI + autocompletado de shell
-  install.js          # despachador principal
-  install-*.js        # un instalador por CLI
-  lib/utils.js        # utilidades compartidas
-  completions/
-    egm-install.bash   # autocompletado bash
-    _egm-install       # autocompletado zsh
-  README.md           # documentación detallada de instaladores
-README.md           # este archivo
+mkdir -p ~/.local/bin
+cat > ~/.local/bin/egm-install <<'EOF'
+#!/usr/bin/env bash
+exec node "$HOME/Development/ISyCo Git/egm/egm-installers/install.js" "$@"
+EOF
+chmod +x ~/.local/bin/egm-install
 ```
 
-## Autocompletado de shell
+</details>
 
-Se instala automáticamente en `~/.bashrc` (bash) y `~/.zshrc` (zsh).
-Luego de reiniciar la sesión:
+## 🧩 CLIs soportadas
+
+| | CLI | Destino |
+|:--:|---|---|
+| 🤖 | **Codex** | `~/.codex/plugins/egm/` |
+| ✨ | **agy / Gemini** | `~/.gemini/config/plugins/egm/` |
+| 🧠 | **Claude Code** | `~/.claude/plugins/egm/` |
+| 🖱️ | **Cursor** | `~/.cursor/plugins/local/egm/` |
+| 💥 | **Crush** | `~/.agents/skills/egm-<skill>/` |
+| 🪽 | **Hermes** | `~/.hermes/plugins/egm/` |
+| 🧩 | **OpenCode** | `~/.config/opencode/` + `~/.openisy/config/` |
+| 🔍 | **qoder** | `~/.qoder/plugins/marketplaces/egm/` + cache |
+| 🚁 | **copilot** | `~/.copilot/installed-plugins/_direct/google--elephant-goldfish-model/` |
+
+## 📦 Qué instala
+
+Cada instalador copia el bundle completo —skills, agentes, recursos, documentación y adaptadores— y deja dos archivos de control:
+
+| Archivo | Contenido |
+|---|---|
+| `.egm-source-sha` | Commit del bundle que quedó instalado |
+| `.egm-install-manifest.sha256` | Checksums de todos los archivos instalados |
+
+Todas las operaciones son **idempotentes**: reinstalar limpia el destino anterior, actualizar cambia el SHA y desinstalar elimina solo lo que EGM instaló.
+
+## 🗂️ Estructura del repositorio
+
+```text
+.
+├── .egm-upstream-sha     # commit de upstream sobre el que está construido el fork
+├── egm-installers/       # instaladores por CLI + autocompletado
+│   ├── install.js        # despachador principal
+│   ├── install-*.js      # un instalador por CLI
+│   ├── lib/utils.js      # utilidades compartidas
+│   ├── completions/
+│   │   ├── egm-install.bash
+│   │   └── _egm-install
+│   └── README.md         # documentación detallada de instaladores
+├── skills/               # skills del bundle
+├── agents/               # agentes del bundle
+├── docs/                 # documentación del bundle
+└── README.md             # este archivo
+```
+
+## ⌨️ Autocompletado de shell
+
+Se configura automáticamente en `~/.bashrc` (bash) y `~/.zshrc` (zsh). Tras reiniciar la sesión:
 
 ```bash
 egm-install <TAB>   # codex agy claude cursor crush qoder copilot hermes opencode --all --help -h
 ```
 
-## Requisitos
+## 🔄 Actualizar desde upstream
 
-- Node.js >= 18
-- Los CLI respectivos instalados en el sistema
+El fork comparte historia con `google/elephant-goldfish-model`, así que las actualizaciones se traen con un merge normal:
 
-## Licencia
+```bash
+git remote add upstream https://github.com/google/elephant-goldfish-model.git  # solo la primera vez
+git fetch upstream
+git merge upstream/main
 
-Apache-2.0 (heredado del bundle EGM original).
+# Actualizar el SHA de referencia y reinstalar
+git rev-parse upstream/main > .egm-upstream-sha
+egm-install --all
+```
+
+## ✅ Verificación
+
+Suite E2E ejecutada el **2026-11-07**: **47/47 PASS** en los 9 CLIs.
+
+| Fase | Qué comprueba |
+|---|---|
+| 1. Instalación | El bundle queda en el destino correcto |
+| 2. Idempotencia | Reinstalar no duplica ni rompe archivos |
+| 3. Actualización | `.egm-source-sha` refleja el nuevo commit |
+| 4. Desinstalación | El destino queda limpio |
+| 5. Reinstalación | El CLI vuelve a quedar funcional |
+
+## 📋 Requisitos
+
+- **Node.js ≥ 18**
+- El CLI de destino instalado en el sistema
+- `bash` o `zsh` para el autocompletado (opcional)
+
+## 📄 Licencia
+
+[Apache-2.0](LICENSE), heredada del bundle EGM original.
+
+---
+
+<p align="center">
+  <sub>Fork mantenido por <a href="https://github.com/DannyBaanks">DannyBaanks</a> · no oficial</sub>
+</p>

@@ -1,120 +1,131 @@
-# EGM Installers — Paquetes de comando para instalar el bundle EGM en cualquier CLI
+<h1 align="center">📦 EGM Installers</h1>
 
-Instala el bundle **Elephant-Goldfish Model (EGM)** en las CLIs de IA de forma tan fácil como
-`codex plugin add`, `claude plugin install` o `agy plugin install`.
+<p align="center">
+  <strong>El bundle Elephant-Goldfish Model, instalado en cualquier CLI con un solo comando.</strong>
+</p>
 
-Soporta **9 CLIs**: Codex, agy/Gemini, Claude Code, Cursor, Crush, qoder, copilot, Hermes y OpenCode V2.
+<p align="center">
+  <img alt="CLIs" src="https://img.shields.io/badge/CLIs-9-6f42c1">
+  <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A5%2018-339933?logo=node.js&logoColor=white">
+  <img alt="E2E" src="https://img.shields.io/badge/E2E-47%2F47%20PASS-brightgreen">
+</p>
 
-## Estructura
+---
 
-```
-egm/           # Fork del bundle EGM (skills, agents, resources, docs, plugin.json…)
-egm-installers/       # Este directorio
-  install.js          # Despachador principal (node install.js <cli> | --all)
-  install-all.js      # Alias: instala todos los CLI detectados
-  install-codex.js    # Codex CLI
-  install-agy.js      # agy / Gemini CLI
-  install-claude.js   # Claude Code
-  install-cursor.js   # Cursor
-  install-crush.js    # Crush
-  install-qoder.js    # qoder
-  install-copilot.js  # copilot CLI
-  install-hermes.js   # Hermes portable
-  install-opencode.js # OpenCode V2
-  lib/utils.js        # Utilidades compartidas (copyTree, manifiestos SHA-256)
-  completions/        # Autocompletado de shell (bash + zsh)
-    egm-install.bash
-    _egm-install
-  README.md           # este archivo
-```
+Instala el bundle **Elephant-Goldfish Model (EGM)** de forma tan simple como `codex plugin add`, `claude plugin install` o `agy plugin install`, pero para **9 CLIs** a la vez.
 
-## Comando en el PATH (recomendado)
+## 🧩 CLIs soportadas
 
-Se instala un único comando `egm-install` (con alias `egm`) en `~/.local/bin/`:
+| | CLI | Instalador |
+|:--:|---|---|
+| 🤖 | **Codex** | `install-codex.js` |
+| ✨ | **agy / Gemini** | `install-agy.js` |
+| 🧠 | **Claude Code** | `install-claude.js` |
+| 🖱️ | **Cursor** | `install-cursor.js` |
+| 💥 | **Crush** | `install-crush.js` |
+| 🪽 | **Hermes** | `install-hermes.js` |
+| 🧩 | **OpenCode** | `install-opencode.js` |
+| 🔍 | **qoder** | `install-qoder.js` |
+| 🚁 | **copilot** | `install-copilot.js` |
+
+## ⚡ Uso rápido
 
 ```bash
-# Instalar en un solo CLI
+# Un CLI
 egm-install codex
-egm-install agy
-egm-install claude
-egm-install cursor
-egm-install crush
-egm-install qoder
-egm-install copilot
-egm-install hermes
-egm-install opencode
 
-# Instalar en todos los CLI que tenga detectados
+# Todos los CLIs detectados
 egm-install --all
-# o
+
+# Alias corto
 egm --all
 
 # Ayuda
 egm-install --help
 ```
 
-El comando es un wrapper sobre `node install.js`, así que funciona desde cualquier directorio.
+El comando `egm-install` es un wrapper sobre `node install.js`, así que funciona desde cualquier directorio.
 
-## Autocompletado de shell
-
-### Bash
-Se agrega automáticamente a tu `~/.bashrc`. Luego de reiniciar la sesión (o hacer `source ~/.bashrc`):
+### Desde el repositorio
 
 ```bash
-egm-install <TAB>   # → codex agy claude cursor crush qoder copilot hermes opencode --all --help -h
+cd egm-installers
+
+node install.js codex      # un CLI
+node install.js --all      # todos los detectados
+node install-all.js        # alias de --all
 ```
 
-Los archivos de completion viven en:
-- `egm-installers/completions/egm-install.bash` (en el repo)
-- `~/.local/share/egm-installers/completions/egm-install.bash` (instalado, sourceado desde `~/.bashrc`)
+## 🗂️ Estructura
 
-### Zsh
-Se agrega automáticamente a tu `~/.zshrc` (fpath + compinit). Los archivos viven en:
-- `egm-installers/completions/_egm-install` (en el repo)
-- `~/.local/share/zsh/completions/_egm-install` (symlink al repo)
-
-## Uso desde el directorio del repo
-
-Desde `ISyCo Git/egm/egm-installers/`:
-
-```bash
-# Instalar en un solo CLI
-node install.js codex
-node install.js agy
-node install.js claude
-node install.js cursor
-node install.js crush
-node install.js qoder
-node install.js copilot
-node install.js hermes
-node install.js opencode
-
-# Instalar en todos los CLI que detecte
-node install.js --all
-# o
-node install-all.js
+```text
+egm-installers/
+├── install.js          # despachador principal (node install.js <cli> | --all)
+├── install-all.js      # alias: instala todos los CLIs detectados
+├── install-codex.js
+├── install-agy.js
+├── install-claude.js
+├── install-cursor.js
+├── install-crush.js
+├── install-qoder.js
+├── install-copilot.js
+├── install-hermes.js
+├── install-opencode.js
+├── lib/
+│   └── utils.js        # copyTree, manifiestos SHA-256, lectura del bundle
+├── completions/
+│   ├── egm-install.bash
+│   └── _egm-install
+└── README.md           # este archivo
 ```
 
-Cada instalador es **idempotente** (se puede ejecutar varias veces sin romper nada) y escribe:
-- una copia del bundle en la carpeta de plugins del CLI,
-- `.egm-source-sha` con el commit del bundle (`e9e1f06…`, v0.1.1),
-- `.egm-install-manifest.sha256` con checksums de todos los archivos instalados.
+## 🔒 Qué escribe cada instalador
 
-## Rutas de destino por CLI
+Cada instalador es **idempotente**: se puede ejecutar varias veces sin duplicar archivos ni romper el CLI.
 
-| CLI | Carpeta de destino |
-|-----|-------------------|
+| Artefacto | Contenido |
+|---|---|
+| Copia del bundle | Skills, agentes, recursos, docs y adaptadores en el destino del CLI |
+| `.egm-source-sha` | Commit del bundle instalado (`e9e1f06…`, v0.1.1) |
+| `.egm-install-manifest.sha256` | Checksums de todos los archivos instalados |
+
+Reinstalar limpia el destino anterior; actualizar cambia el SHA; desinstalar elimina solo lo que EGM instaló.
+
+## 📍 Rutas de destino
+
+| CLI | Destino |
+|---|---|
 | Codex | `~/.codex/plugins/egm/` |
 | agy / Gemini | `~/.gemini/config/plugins/egm/` |
 | Claude Code | `~/.claude/plugins/egm/` |
 | Cursor | `~/.cursor/plugins/local/egm/` |
 | Crush | `~/.agents/skills/egm-<skill>/` (una carpeta por skill) |
 | Hermes | `~/.hermes/plugins/egm/` (paquete portable) |
-| OpenCode | `~/.config/opencode/` y `~/.openisy/config/` |
-| qoder | `~/.qoder/plugins/marketplaces/egm/` + `~/.qoder/plugins/cache/egm/egm/0.1.1/` |
+| OpenCode | `~/.config/opencode/` + `~/.openisy/config/` |
+| qoder | `~/.qoder/plugins/marketplaces/egm/` + cache |
 | copilot | `~/.copilot/installed-plugins/_direct/google--elephant-goldfish-model/` |
 
-## Verificación tras instalar
+## ⌨️ Autocompletado de shell
+
+### Bash
+
+Se agrega automáticamente a `~/.bashrc`. Tras reiniciar la sesión (o `source ~/.bashrc`):
+
+```bash
+egm-install <TAB>   # → codex agy claude cursor crush qoder copilot hermes opencode --all --help -h
+```
+
+Archivos:
+- `completions/egm-install.bash` (en el repo)
+- `~/.local/share/egm-installers/completions/egm-install.bash` (instalado)
+
+### Zsh
+
+Se agrega automáticamente a `~/.zshrc` (fpath + compinit). Archivos:
+- `completions/_egm-install` (en el repo)
+- `~/.local/share/zsh/completions/_egm-install` (symlink)
+
+## ✅ Verificación tras instalar
 
 ```bash
 codex plugin list          # debe mostrar egm
@@ -124,8 +135,8 @@ claude plugin list         # debe mostrar egm
 crush dirs                 # skill-path = $HOME/.agents/skills
 ```
 
-## Requisitos
+## 📋 Requisitos
 
-- Node.js >= 18 (para los installers de este directorio)
-- El bundle en la raíz de este repo (`ISyCo Git/egm/`)
-- Los CLI respectivos instalados en el sistema
+- **Node.js ≥ 18**
+- El bundle en la raíz del repo (`ISyCo Git/egm/`)
+- Los CLIs respectivos instalados en el sistema
