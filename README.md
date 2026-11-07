@@ -6,11 +6,11 @@
 </p>
 
 <p align="center">
-  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg">
-  <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A5%2018-339933?logo=node.js&logoColor=white">
-  <img alt="CLIs" src="https://img.shields.io/badge/CLIs-9-6f42c1">
-  <img alt="E2E" src="https://img.shields.io/badge/E2E-47%2F47%20PASS-brightgreen">
-  <img alt="Upstream" src="https://img.shields.io/badge/upstream-e9e1f06-lightgrey">
+  <img alt="License" src="docs/assets/badge-license.svg">
+  <img alt="Node" src="docs/assets/badge-node.svg">
+  <img alt="CLIs" src="docs/assets/badge-clis.svg">
+  <img alt="E2E" src="docs/assets/badge-e2e.svg">
+  <img alt="Upstream" src="docs/assets/badge-upstream.svg">
 </p>
 
 ---

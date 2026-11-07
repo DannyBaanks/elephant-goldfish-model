@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-  <img alt="CLIs" src="https://img.shields.io/badge/CLIs-9-6f42c1">
-  <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A5%2018-339933?logo=node.js&logoColor=white">
-  <img alt="E2E" src="https://img.shields.io/badge/E2E-47%2F47%20PASS-brightgreen">
+  <img alt="CLIs" src="../docs/assets/badge-clis.svg">
+  <img alt="Node" src="../docs/assets/badge-node.svg">
+  <img alt="E2E" src="../docs/assets/badge-e2e.svg">
 </p>
 
 ---
